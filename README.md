@@ -12,6 +12,14 @@ Sicherheitsfreigaben und produktive Funktionen sind noch nicht implementiert.
 - Kotlin Android Plugin 2.2.21
 - Android SDK / compile SDK 35
 
+AGP 8.11.1 benötigt laut [Release Notes](https://developer.android.com/build/releases/past-releases/agp-8-11-0-release-notes)
+Gradle 8.13 und JDK 17. Die [Kotlin-Kompatibilitätstabelle](https://kotlinlang.org/docs/gradle-configure-project.html)
+führt für Kotlin 2.2.21 Gradle 7.6.3–8.14 und AGP 7.3.1–8.11.1 auf.
+Der isolierte AGP-Sprung auf 9.4.1 wurde deshalb in beiden Plugindeklarationen
+zurückgenommen: [Job 116974354446](https://github.com/nikolausnold/NIKNOLIG-iOS-/actions/runs/38896145463/job/116974354446)
+scheiterte an dessen Mindestanforderung Gradle 9.6.0. Wrapper, Kotlin,
+App-Konfiguration und JDK der CI bleiben unverändert.
+
 Debug-Build starten:
 
 ```sh
@@ -301,11 +309,13 @@ Die Tests prüfen insbesondere HTTPS-Zielvalidierung und den versionierten Pfad.
 Ein echter HTTPS-Verbindungstest auf einem Gerät und ein Deployment-Test am
 Hetzner-Server benötigen eine separate Freigabe und sind nicht Teil des Autobuilds.
 
-Prüfstand dieses Autobuilds: Der lokale Android-Aufruf wurde vor der Kompilierung
-blockiert, weil `dl.google.com` nicht auflösbar war und deshalb AGP 8.11.1 nicht
-geladen werden konnte. Daher sind APK, neue Unit-Tests und Lint lokal **nicht
-bestätigt**; es wurde weder die Pluginversion geändert noch eine Ersatzquelle
-eingebaut. Der zuvor erfolgreiche
+Prüfstand der CI-Reparatur (16.10.2026): Der Aufruf
+`./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug --no-daemon --console=plain`
+mit Temurin JDK 17.0.20.1 lud und startete Gradle 8.13 erfolgreich, scheiterte aber
+bereits bei der Auflösung von AGP 8.11.1. `dl.google.com` war in dieser Umgebung
+nicht auflösbar. **Keine der drei Aufgaben wurde ausgeführt oder bestanden**;
+APK, Unit-Tests und Lint sind für diese Reparatur nicht bestätigt. Es wurde keine
+Ersatzquelle eingebaut. Der zuvor erfolgreiche
 [Android-Lauf 38862786396](https://github.com/nikolausnold/NIKNOLIG/actions/runs/38862786396)
 bestätigt nur den Ausgangsstand, nicht diese Änderungen. Der aktualisierte Workflow
 führt Unit-Tests, Lint und APK-Build gemeinsam aus.
