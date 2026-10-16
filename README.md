@@ -3,6 +3,7 @@
 Eigenständiges Android-Entwicklungsgerüst für NIKNOLIG und Elektro-Engel. Der
 aktuelle Bildschirm ist eine Vorschau; BLE, Gerätevertrauen,
 Sicherheitsfreigaben und produktive Funktionen sind noch nicht implementiert.
+Das Repository enthält außerdem eine native iOS-Vorschau unter `ios/`.
 
 ## Build-Basis
 
@@ -17,6 +18,25 @@ Debug-Build starten:
 ```sh
 ./gradlew :app:assembleDebug
 ```
+
+## iOS-App
+
+Das native SwiftUI-Projekt in `ios/NIKNOLIG.xcodeproj` bildet die Android-Vorschau
+für iOS 17 und neuer auf Deutsch und Englisch nach: Startbildschirm, Elektro-Engel, Lernprofil,
+datenschutzbewusste lokale Rückmeldungen und Sitzungskurzfassung. Es benötigt
+macOS und Xcode. Öffne das Projekt in Xcode oder erstelle einen nicht signierten
+Simulator-Build mit:
+
+```sh
+xcodebuild -project ios/NIKNOLIG.xcodeproj -scheme NIKNOLIG \
+  -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO build
+```
+
+Die Assistenz verarbeitet Anfragen nur lokal und bietet keine Geräteverbindung
+oder automatische Antwort. Optional lässt sich in
+`ios/NIKNOLIG/Info.plist` unter `BackendBaseURL` ein HTTPS-Ursprung für den
+isolierten Sandbox-Gesundheitstest eintragen. Dabei wird ausschließlich
+`/v1/health` abgefragt; Anfragen und Profildaten werden nicht übertragen.
 
 Der [Android-Build-Workflow](https://github.com/nikolausnold/NIKNOLIG/actions/workflows/android-build.yml)
 erstellt und prüft die Debug-APK. Nach einem erfolgreichen Lauf findest du das

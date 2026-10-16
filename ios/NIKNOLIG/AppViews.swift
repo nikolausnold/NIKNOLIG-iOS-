@@ -17,7 +17,7 @@ private enum ResponseStyle: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    var title: String {
+    var title: LocalizedStringKey {
         switch self {
         case .concise: "Kurz und knapp"
         case .stepByStep: "Schritt für Schritt"
@@ -25,7 +25,7 @@ private enum ResponseStyle: String, CaseIterable, Identifiable {
         }
     }
 
-    var preview: String {
+    var preview: LocalizedStringKey {
         switch self {
         case .concise: "Vorschau: „Öffne die Einstellungen und wähle Bluetooth.“"
         case .stepByStep: "Vorschau:\n1. Öffne die Einstellungen.\n2. Tippe auf Bluetooth."
@@ -53,7 +53,7 @@ private struct AppCard<Content: View>: View {
 }
 
 private struct SectionHeading: View {
-    let title: String
+    let title: LocalizedStringKey
 
     var body: some View {
         Text(title)
@@ -272,8 +272,11 @@ private struct AssistantView: View {
                 Button {
                     let trimmedRequest = request.trimmingCharacters(in: .whitespacesAndNewlines)
                     requestStatus = trimmedRequest.isEmpty
-                        ? "Bitte gib zuerst eine Anfrage ein."
-                        : "Anfrage, nur hier angezeigt:\n\(trimmedRequest)\n\nEs wurde nichts übertragen und keine Aktion ausgeführt."
+                        ? NSLocalizedString("assistant_request_empty", comment: "")
+                        : String(
+                            format: NSLocalizedString("assistant_request_local_only", comment: ""),
+                            trimmedRequest
+                        )
                 } label: {
                     Text("Anfrage lokal anzeigen")
                 }
@@ -333,8 +336,8 @@ private struct AssistantView: View {
         .toolbar(.hidden, for: .navigationBar)
         .onAppear {
             backendStatus = backendBaseURL.isEmpty
-                ? "Backend nicht konfiguriert. Alle Vorschaufunktionen bleiben lokal."
-                : "Optionaler Verbindungstest: Nur der Serverstatus wird abgefragt, keine Eingaben oder Profildaten werden gesendet."
+                ? NSLocalizedString("backend_not_configured", comment: "")
+                : NSLocalizedString("backend_ready", comment: "")
         }
     }
 
@@ -342,11 +345,11 @@ private struct AssistantView: View {
     private func checkBackend() async {
         guard !backendBaseURL.isEmpty else { return }
         isCheckingBackend = true
-        backendStatus = "Testverbindung wird geprüft …"
+        backendStatus = NSLocalizedString("backend_checking", comment: "")
         let healthy = await BackendHealthClient.check(baseURL: backendBaseURL)
         backendStatus = healthy
-            ? "Sandbox erreichbar. KI, Profilsynchronisierung und Geräteaktionen bleiben deaktiviert."
-            : "Testverbindung nicht verfügbar oder inkompatibel. Lokale Funktionen bleiben unverändert."
+            ? NSLocalizedString("backend_healthy", comment: "")
+            : NSLocalizedString("backend_unavailable", comment: "")
         isCheckingBackend = false
     }
 }
@@ -457,7 +460,14 @@ private struct LearningProfileView: View {
                     Text("Teste die Rückmeldung an einer Beispielantwort. Gespeichert wird nur die jeweilige Gesamtzahl, und nur wenn du oben zugestimmt hast. Eine Korrektur wird nicht als Text gespeichert.")
                         .font(.subheadline)
                         .foregroundStyle(.white)
-                    Text("Lokal gezählt: hilfreich \(helpfulCount) · unklar \(unclearCount) · Korrektur nötig \(correctionCount)")
+                    Text(
+                        String(
+                            format: NSLocalizedString("learning_feedback_summary", comment: ""),
+                            helpfulCount,
+                            unclearCount,
+                            correctionCount
+                        )
+                    )
                         .font(.subheadline)
                         .foregroundStyle(AppPalette.secondary)
 
@@ -507,11 +517,11 @@ private struct LearningProfileView: View {
         let summary = summaryDraft.trimmingCharacters(in: .whitespacesAndNewlines)
         if summary.isEmpty {
             sessionSummary = ""
-            summaryStatus = "Leere Zusammenfassung – gespeicherte Fassung entfernt."
+            summaryStatus = NSLocalizedString("session_summary_empty_status", comment: "")
         } else {
             sessionSummary = String(summary.prefix(500))
             summaryDraft = sessionSummary
-            summaryStatus = "Zusammenfassung lokal gespeichert."
+            summaryStatus = NSLocalizedString("session_summary_saved_status", comment: "")
         }
     }
 
@@ -523,6 +533,6 @@ private struct LearningProfileView: View {
         correctionCount = 0
         sessionSummary = ""
         summaryDraft = ""
-        summaryStatus = "Zusammenfassung und Lernprofil gelöscht."
+        summaryStatus = NSLocalizedString("session_summary_cleared_status", comment: "")
     }
 }

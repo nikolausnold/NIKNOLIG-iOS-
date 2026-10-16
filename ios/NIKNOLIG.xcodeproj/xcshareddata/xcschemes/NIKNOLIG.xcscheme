@@ -65,7 +65,7 @@
             BuildableName = "NIKNOLIG.app"
             BlueprintName = "NIKNOLIG"
             ReferencedContainer = "container:NIKNOLIG.xcodeproj">
-         </BuildableProductRunnable>
+         </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction buildConfiguration = "Debug"/>

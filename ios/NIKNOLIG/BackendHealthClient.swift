@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 private final class NoRedirectDelegate: NSObject, URLSessionTaskDelegate {
     func urlSession(
