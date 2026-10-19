@@ -123,6 +123,10 @@ a:focus-visible {
     color: var(--text);
 }
 
+.site-header nav .nav-download {
+    color: var(--accent);
+}
+
 .nav-contact span {
     margin-left: 4px;
     color: var(--accent);
