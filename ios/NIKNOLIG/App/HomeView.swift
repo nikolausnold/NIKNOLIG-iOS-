@@ -49,8 +49,8 @@ struct HomeView: View {
                     supportStatus = "Der E-Mail-Link ist ungültig."
                     return
                 }
-                openURL(url) { result in
-                    if case .systemAction = result {
+                openURL(url) { accepted in
+                    if accepted {
                         supportStatus = "Der Entwurf wurde an deine Mail-App übergeben. Die App kann den Versand nicht feststellen."
                     } else {
                         supportStatus = "Keine geeignete Mail-App verfügbar."
