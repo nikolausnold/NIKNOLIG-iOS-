@@ -70,6 +70,8 @@ struct OfficialWebsiteView: View {
         openURL(url) { accepted in
             if !accepted {
                 loadState = .failed("Der externe Link konnte nicht geöffnet werden.")
+            } else if case .loading = loadState {
+                loadState = .failed("Die Website hat zu einem externen Link weitergeleitet, der in Safari geöffnet wurde.")
             }
         }
     }
