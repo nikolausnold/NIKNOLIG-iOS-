@@ -3,6 +3,13 @@ import XCTest
 @testable import NIKNOLIGCore
 
 final class NIKNOLIGCoreTests: XCTestCase {
+    func testOfficialWebsiteUsesCanonicalHTTPSURL() {
+        XCTAssertEqual(OfficialWebsite.url.absoluteString, "https://niknolig.com/")
+        XCTAssertEqual(OfficialWebsite.url.scheme, "https")
+        XCTAssertEqual(OfficialWebsite.url.host, "niknolig.com")
+        XCTAssertEqual(OfficialWebsite.url.path, "/")
+    }
+
     func testBackendEndpointResolvesOnlyHTTPSOrigins() throws {
         let endpoint = try BackendEndpoint(baseURL: "https://example.org/")
         XCTAssertEqual(endpoint.healthURL.absoluteString, "https://example.org/v1/health")
