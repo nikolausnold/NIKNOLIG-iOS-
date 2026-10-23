@@ -34,6 +34,16 @@ google-services.json
 # Android Profiling
 *.hprof
 
+# Xcode and Swift Package Manager
+.DS_Store
+DerivedData/
+xcuserdata/
+*.xcuserstate
+ios/NIKNOLIGCore/.build/
+ios/NIKNOLIGCore/Packages/
+ios/NIKNOLIGCore/.swiftpm/configuration/registries.json
+ios/NIKNOLIGCore/.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
 # Isolated backend runtime state and operator-only configuration
 __pycache__/
 *.pyc
