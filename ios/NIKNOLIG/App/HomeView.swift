@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(\.openURL) private var openURL
     @State private var showingSupportConfirmation = false
+    @State private var showingWebsite = false
     @State private var supportStatus: String?
 
     var body: some View {
@@ -22,6 +23,11 @@ struct HomeView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
+                Button("NIKNOLIG-Website", systemImage: "globe") {
+                    showingWebsite = true
+                }
+                .buttonStyle(.bordered)
+
                 Button("Technischen Support kontaktieren", systemImage: "envelope") {
                     showingSupportConfirmation = true
                 }
@@ -37,6 +43,11 @@ struct HomeView: View {
                     .foregroundStyle(.secondary)
             }
             .padding()
+        }
+        .sheet(isPresented: $showingWebsite) {
+            NavigationStack {
+                OfficialWebsiteView()
+            }
         }
         .navigationTitle("NIKNOLIG")
         .confirmationDialog(

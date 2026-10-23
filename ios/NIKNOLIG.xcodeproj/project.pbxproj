@@ -10,6 +10,7 @@
 		A10000000000000000000004 /* AssistantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* AssistantView.swift */; };
 		A10000000000000000000005 /* LearningProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* LearningProfileView.swift */; };
 		A10000000000000000000006 /* NIKNOLIGCore in Frameworks */ = {isa = PBXBuildFile; productRef = A80000000000000000000001 /* NIKNOLIGCore */; };
+		A10000000000000000000007 /* OfficialWebsiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000007 /* OfficialWebsiteView.swift */; };
 
 		A20000000000000000000001 /* NIKNOLIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIKNOLIGApp.swift; sourceTree = "<group>"; };
 		A20000000000000000000002 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -17,6 +18,7 @@
 		A20000000000000000000004 /* AssistantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantView.swift; sourceTree = "<group>"; };
 		A20000000000000000000005 /* LearningProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProfileView.swift; sourceTree = "<group>"; };
 		A20000000000000000000006 /* NIKNOLIG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NIKNOLIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000000000000000000007 /* OfficialWebsiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficialWebsiteView.swift; sourceTree = "<group>"; };
 
 		A30000000000000000000001 /* App */ = {isa = PBXGroup; children = (
 			A20000000000000000000001 /* NIKNOLIGApp.swift */,
@@ -24,6 +26,7 @@
 			A20000000000000000000003 /* HomeView.swift */,
 			A20000000000000000000004 /* AssistantView.swift */,
 			A20000000000000000000005 /* LearningProfileView.swift */,
+			A20000000000000000000007 /* OfficialWebsiteView.swift */,
 		); path = NIKNOLIG/App; sourceTree = "<group>"; };
 		A30000000000000000000002 = {isa = PBXGroup; children = (
 			A30000000000000000000001 /* App */,
@@ -39,6 +42,7 @@
 			A10000000000000000000003 /* HomeView.swift in Sources */,
 			A10000000000000000000004 /* AssistantView.swift in Sources */,
 			A10000000000000000000005 /* LearningProfileView.swift in Sources */,
+			A10000000000000000000007 /* OfficialWebsiteView.swift in Sources */,
 		); runOnlyForDeploymentPostprocessing = 0; };
 		A40000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (
 			A10000000000000000000006 /* NIKNOLIGCore in Frameworks */,
