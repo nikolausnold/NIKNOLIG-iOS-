@@ -62,5 +62,5 @@ extension View {
         toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(NIKNOLIGTheme.background, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-        }
+    }
 }

@@ -24,5 +24,9 @@ struct MainTabView: View {
                 Label("Lernprofil", systemImage: "slider.horizontal.3")
             }
         }
+        .tint(NIKNOLIGTheme.gold)
+        .toolbarBackground(NIKNOLIGTheme.background, for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
+        .preferredColorScheme(.dark)
     }
 }

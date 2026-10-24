@@ -20,28 +20,33 @@ struct OfficialWebsiteView: View {
             switch loadState {
             case .loading:
                 ProgressView("Website wird geladen …")
+                    .tint(NIKNOLIGTheme.neonGreen)
                     .padding()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.background.opacity(0.9))
+                    .background(NIKNOLIGTheme.background.opacity(0.94))
             case .loaded:
                 EmptyView()
             case .failed(let message):
                 VStack(spacing: 16) {
                     Label("Website nicht verfügbar", systemImage: "wifi.exclamationmark")
                         .font(.headline)
+                        .foregroundStyle(NIKNOLIGTheme.gold)
                     Text(message)
                         .multilineTextAlignment(.center)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(NIKNOLIGTheme.mutedText)
                     Button("Erneut versuchen") {
                         reloadID += 1
                     }
                     .buttonStyle(.borderedProminent)
+                    .tint(NIKNOLIGTheme.neonGreen)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.background)
+                .background(NIKNOLIGTheme.background)
             }
         }
+        .niknoligBackdrop()
+        .niknoligNavigationStyle()
         .navigationTitle("Website")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -49,6 +54,7 @@ struct OfficialWebsiteView: View {
                 Button("Schließen") {
                     dismiss()
                 }
+                .tint(NIKNOLIGTheme.gold)
             }
         }
     }

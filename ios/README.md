@@ -20,3 +20,12 @@ The app depends only on the local `ios/NIKNOLIGCore` Swift package; there are
 no remote Swift packages or other external iOS dependencies. The package's
 unit tests can be run with `swift test --package-path ios/NIKNOLIGCore`.
 Building or running the iOS app and simulator tests requires Xcode on macOS.
+
+## iOS brand styling
+
+The shared NIKNOLIG palette, typography, card treatment, and screen background
+are defined in `ios/NIKNOLIG/App/NIKNOLIGTheme.swift`. Native SwiftUI styling is
+applied in `HomeView.swift`, `MainTabView.swift`, `AssistantView.swift`,
+`LearningProfileView.swift`, and `OfficialWebsiteView.swift`. The current app
+has no onboarding screen and uses no dedicated image assets; the brand mark is
+composed from native SF Symbols and text.

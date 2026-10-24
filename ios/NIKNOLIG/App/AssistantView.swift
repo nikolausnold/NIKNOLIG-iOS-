@@ -10,19 +10,23 @@ struct AssistantView: View {
 
     var body: some View {
         Form {
-            Section("Elektro-Engel Vorschau") {
+            Section {
                 Text("Die Eingabe wird nur auf diesem Bildschirm angezeigt. Es gibt keinen aktiven KI-Dienst und keine automatische Übertragung.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(NIKNOLIGTheme.mutedText)
                 TextField("Wobei brauchst du Unterstützung?", text: $requestText, axis: .vertical)
                     .lineLimit(3...6)
                     .accessibilityLabel("Lokale Vorschau-Eingabe")
+            } header: {
+                Text("Elektro-Engel Vorschau")
+                    .foregroundStyle(NIKNOLIGTheme.gold)
             }
+            .listRowBackground(NIKNOLIGTheme.surface)
 
-            Section("Optionaler Sandbox-Verbindungstest") {
+            Section {
                 Text("Nur ein HTTPS-Health-GET zu einer von dir angegebenen Serveradresse. Keine Anmeldung, Nutzereingabe oder Profildaten werden übertragen.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(NIKNOLIGTheme.mutedText)
                 TextField("https://server.example", text: $backendOrigin)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
@@ -33,17 +37,30 @@ struct AssistantView: View {
                 } label: {
                     if isCheckingHealth {
                         ProgressView("Prüfe Verbindung …")
+                            .tint(NIKNOLIGTheme.background)
                     } else {
                         Text("Verbindung ausdrücklich prüfen")
                     }
                 }
                 .disabled(isCheckingHealth || backendOrigin.isEmpty)
+                .buttonStyle(.borderedProminent)
+                .tint(NIKNOLIGTheme.neonGreen)
                 Text(healthStatus)
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(NIKNOLIGTheme.mutedText)
+                    .accessibilityLiveRegion(.polite)
+            } header: {
+                Text("Optionaler Sandbox-Verbindungstest")
+                    .foregroundStyle(NIKNOLIGTheme.gold)
             }
+            .listRowBackground(NIKNOLIGTheme.surface)
         }
+        .scrollContentBackground(.hidden)
+        .niknoligBackdrop()
+        .niknoligNavigationStyle()
+        .tint(NIKNOLIGTheme.neonGreen)
         .navigationTitle("Elektro-Engel")
+        .navigationBarTitleDisplayMode(.inline)
         .onDisappear {
             healthTask?.cancel()
         }

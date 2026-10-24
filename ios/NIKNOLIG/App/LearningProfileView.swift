@@ -33,6 +33,7 @@ struct LearningProfileView: View {
                     }
                 }
             }
+            .listRowBackground(NIKNOLIGTheme.surface)
 
             Section("Freiwillige Rückmeldungen") {
                 Toggle("Manuelle Beispiel-Rückmeldungen zählen", isOn: Binding(
@@ -45,7 +46,7 @@ struct LearningProfileView: View {
                 ))
                 Text("Es werden nur deine manuell ausgelösten Zähler gespeichert, keine Texte oder Gesprächsverläufe. Die Zähler ändern keine Antworten.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(NIKNOLIGTheme.mutedText)
                 HStack {
                     feedbackButton("Hilfreich", count: profile.helpfulCount) {
                         $0.recordHelpfulFeedback()
@@ -58,14 +59,18 @@ struct LearningProfileView: View {
                     }
                 }
             }
+            .listRowBackground(NIKNOLIGTheme.surface)
 
             Section("Manuelle Sitzungsnotiz") {
                 Text("Wird nur nach dem Speichern lokal abgelegt (max. 500 Zeichen). Keine sensiblen Angaben eintragen.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(NIKNOLIGTheme.mutedText)
                 TextEditor(text: $summaryDraft)
                     .frame(minHeight: 100)
                     .accessibilityLabel("Optionale Sitzungsnotiz")
+                    .scrollContentBackground(.hidden)
+                    .foregroundStyle(NIKNOLIGTheme.text)
+                    .tint(NIKNOLIGTheme.neonGreen)
                     .onChange(of: summaryDraft) { _, value in
                         if value.count > 500 {
                             summaryDraft = String(value.prefix(500))
@@ -73,7 +78,7 @@ struct LearningProfileView: View {
                     }
                 Text("\(summaryDraft.count)/500")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(NIKNOLIGTheme.mutedText)
                 Button("Notiz speichern") {
                     var updated = profile
                     updated.saveSessionSummary(summaryDraft)
@@ -83,21 +88,29 @@ struct LearningProfileView: View {
                     }
                 }
             }
+            .listRowBackground(NIKNOLIGTheme.surface)
 
             Section {
                 Button("Alle Lernprofildaten löschen", role: .destructive) {
                     showingClearConfirmation = true
                 }
             }
+            .listRowBackground(NIKNOLIGTheme.surface)
             if let statusMessage {
                 Section {
                     Text(statusMessage)
                         .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(NIKNOLIGTheme.neonGreen)
                 }
+                .listRowBackground(NIKNOLIGTheme.surface)
             }
         }
+        .scrollContentBackground(.hidden)
+        .niknoligBackdrop()
+        .niknoligNavigationStyle()
+        .tint(NIKNOLIGTheme.gold)
         .navigationTitle("Lernprofil")
+        .navigationBarTitleDisplayMode(.inline)
         .confirmationDialog(
             "Alle lokalen Lernprofildaten löschen?",
             isPresented: $showingClearConfirmation,
@@ -146,6 +159,7 @@ struct LearningProfileView: View {
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.bordered)
+        .tint(NIKNOLIGTheme.gold)
         .disabled(!profile.feedbackEnabled)
     }
 
